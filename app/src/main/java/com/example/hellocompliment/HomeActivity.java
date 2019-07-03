@@ -1,5 +1,6 @@
 package com.example.hellocompliment;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ import android.view.Menu;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    NavigationView mNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +35,16 @@ public class HomeActivity extends AppCompatActivity
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        mNavigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        Menu menuNav = mNavigationView.getMenu();
+        MenuItem menuItemNameUser = menuNav.findItem(R.id.itemUsuario);
+        menuItemNameUser.setTitle(MySharedPreferences.loadName());
     }
 
     @Override
@@ -80,6 +87,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

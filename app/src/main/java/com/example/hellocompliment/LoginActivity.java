@@ -3,9 +3,11 @@ package com.example.hellocompliment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,20 +26,17 @@ public class LoginActivity extends AppCompatActivity {
         etPasswd = findViewById(R.id.etPasswd);
         btnSignIn = findViewById(R.id.btnSingIn);
 
-        name = etName.getText().toString();
-        password = etPasswd.getText().toString();
-
         //Pasamos el contexto
         MySharedPreferences.init(getApplicationContext());
-
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                name = etName.getText().toString();
+                password = etPasswd.getText().toString();
                 Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                 MySharedPreferences.saveName(name);
                 MySharedPreferences.savePassword(password);
-                i.putExtra("name", etName.getText().toString());
                 startActivity(i);
             }
         });

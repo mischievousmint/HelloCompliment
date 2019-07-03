@@ -8,7 +8,7 @@ public class MySharedPreferences {
 
     private  static SharedPreferences mySharedPref;
     static final String KEYNAME = "nombre";
-    static final String KEYPASSWORD = "nombre";
+    static final String PASSWORD = "password";
 
     private MySharedPreferences() {
 
@@ -31,14 +31,13 @@ public class MySharedPreferences {
     }
 
 
-    public static void  savePassword(String password) {
+    public static void  savePassword(String name) {
         SharedPreferences.Editor prefsEditor = mySharedPref.edit();
-        prefsEditor.putString(KEYPASSWORD, password);
+        prefsEditor.putString(PASSWORD, name);
         prefsEditor.apply();
     }
 
     public static String loadPassword() {
-        return  mySharedPref.getString(KEYPASSWORD, "");
+        return  mySharedPref.getString(PASSWORD, "");
     }
 }
-
