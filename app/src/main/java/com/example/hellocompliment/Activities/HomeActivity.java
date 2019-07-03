@@ -1,9 +1,12 @@
-package com.example.hellocompliment;
+package com.example.hellocompliment.Activities;
 
-import android.content.ClipData;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,8 +18,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.example.hellocompliment.Fragments.GalleryFragment;
+import com.example.hellocompliment.Fragments.HomeFragment;
+import com.example.hellocompliment.MySharedPreferences;
+import com.example.hellocompliment.R;
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, GalleryFragment.OnFragmentInteractionListener {
 
     NavigationView mNavigationView;
 
@@ -45,6 +53,12 @@ public class HomeActivity extends AppCompatActivity
         Menu menuNav = mNavigationView.getMenu();
         MenuItem menuItemNameUser = menuNav.findItem(R.id.itemUsuario);
         menuItemNameUser.setTitle(MySharedPreferences.loadName());
+
+        FragmentManager FM = getSupportFragmentManager();
+        FragmentTransaction FT = FM.beginTransaction();
+        Fragment myFragment = new HomeFragment();
+        FT.add(R.id.flContainer, myFragment);
+        FT.commit();
     }
 
     @Override
@@ -84,12 +98,17 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager FM = getSupportFragmentManager();
+        FragmentTransaction FT = FM.beginTransaction();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-
+            Fragment myNewFragment = new HomeFragment();
+            FT.replace(R.id.flContainer, myNewFragment);
+            FT.commit();
         } else if (id == R.id.nav_gallery) {
-
+            Fragment myNewFragment = new GalleryFragment();
+            FT.replace(R.id.flContainer, myNewFragment);
+            FT.commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {
@@ -103,5 +122,15 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
